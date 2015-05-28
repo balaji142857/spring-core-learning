@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.krishnan.balaji.model.LineSegment;
 import com.krishnan.balaji.model.Point;
 
 public class App 
@@ -13,15 +14,22 @@ public class App
 	 
     public static void main( String[] args )
     {
-    	 logger.info("Initializing Spring context.");
+    	 logger.info("Initializing Spring application context.");
          AbstractApplicationContext context = new ClassPathXmlApplicationContext("/context.xml");
+         context.registerShutdownHook();
          Greeter greetings = (Greeter) context.getBean("greeter");
          logger.info("message='" + greetings.getMessage() + "'");
          tryScopes(context);
-         
+         tryLifeCycleMethods(context);
+         logger.info("Attempting to close application context");
          context.close();
-         logger.info("Application context closed");
+         
     }
+
+	private static void tryLifeCycleMethods(AbstractApplicationContext context) {
+		context.getBean("lineSegment",LineSegment.class);
+		
+	}
 
 	private static void tryScopes(AbstractApplicationContext context) {
 		//point is defined as prototype in context
