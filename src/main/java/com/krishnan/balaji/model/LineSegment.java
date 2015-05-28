@@ -2,10 +2,14 @@ package com.krishnan.balaji.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-public class LineSegment implements InitializingBean, DisposableBean {
+public class LineSegment implements InitializingBean, DisposableBean, ApplicationContextAware, BeanNameAware {
 	final static Logger logger = LoggerFactory.getLogger(LineSegment.class);
 	private Point pointA;
 	private Point pointB;
@@ -47,5 +51,14 @@ public class LineSegment implements InitializingBean, DisposableBean {
 
 	public void destroy() throws Exception {
 		logger.info("LineSegment destroy() called.");
+	}
+
+	public void setBeanName(String arg0) {
+		logger.info("setBeanName("+arg0+") called");
+	}
+
+	public void setApplicationContext(ApplicationContext arg0)
+			throws BeansException {
+		logger.info("setApplicationContext() caled");
 	}
 }
