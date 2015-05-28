@@ -7,6 +7,9 @@
     <bean id="greeter"  class="com.krishnan.balaji.Greeter">
         <property name="message" value="Spring is fun." />
     </bean>
+		
+	<bean class="com.krishnan.balaji.utils.DisplayBeanNamePostProcessor"></bean>
+	
 	<bean id="somePoint" class="com.krishnan.balaji.model.Point">
 		<property name="x" value="10"></property>
 		<property name="y" value="10"></property>
