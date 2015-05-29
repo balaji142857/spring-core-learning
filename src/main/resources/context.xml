@@ -9,6 +9,7 @@
 	</bean>
 
 	<bean class="com.krishnan.balaji.utils.DisplayBeanNamePostProcessor"></bean>
+	<bean class="com.krishnan.balaji.utils.MyBeanFactoryPP"></bean>
 
 	<bean id="somePoint" class="com.krishnan.balaji.model.Point">
 		<property name="x" value="10"></property>
