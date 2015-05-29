@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   					http://www.springframework.org/schema/beans/spring-beans.xsd
 	   					http://www.springframework.org/schema/context 
 	   					http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- post processors and placeholder configurator -->
+	<!-- post processors and placeholder configurator -->
 
-	<context:annotation-config/>
+	<context:annotation-config />
+	<context:component-scan base-package="com.krishnan.balaji"></context:component-scan>
 	<bean class="com.krishnan.balaji.utils.DisplayBeanNamePostProcessor"></bean>
 	<bean class="com.krishnan.balaji.utils.MyBeanFactoryPP"></bean>
-	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean
+		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<!-- this is a java.util.List -->
 			<list>
@@ -24,10 +27,10 @@
 		</property>
 	</bean>
 	<!-- simple beans -->
-	<bean id="greeter" class="com.krishnan.balaji.Greeter">
-		<property name="message" value="Spring is fun." />
+	<bean name="message" class="java.lang.String">
+		<constructor-arg type="java.lang.String"
+			value="Learning Spring by examples is fun"></constructor-arg>
 	</bean>
-
 	<bean id="somePoint" class="com.krishnan.balaji.model.Point">
 		<property name="x" value="10"></property>
 		<property name="y" value="10"></property>
