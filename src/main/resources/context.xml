@@ -21,6 +21,18 @@
 		<property name="y" value="10"></property>
 	</bean>
 
+	<bean id="circle" class="com.krishnan.balaji.model.Circle">
+		<property name="center">
+			<bean class="com.krishnan.balaji.model.Point">
+				<property name="x" value="${circle.center.x}"></property>
+				<property name="y" value="${circle.center.y}"></property>
+			</bean>
+		</property>
+		<property name="radius" value="7"></property>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="circle.properties"></property>
+	</bean>
 
 	<bean id="lineSegment" class="com.krishnan.balaji.model.LineSegment"
 		init-method="setUp" destroy-method="tearDown">
