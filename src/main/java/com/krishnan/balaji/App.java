@@ -1,5 +1,7 @@
 package com.krishnan.balaji;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -14,7 +16,6 @@ public class App {
 	final static Logger logger = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
-		
 		logger.info("Initializing Spring application context.");
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"/context.xml");
@@ -35,6 +36,8 @@ public class App {
 		logger.info(triangle.draw());
 		logger.info("triangle circumference is " + triangle.circumference());
 		logger.info("Attempting to close application context");
+		logger.info(context.getMessage("birthday",new String[]{"Balaji"},"You are born to be great", Locale.ENGLISH));
+		logger.info(context.getMessage("birthday",new String[]{"Balaji"},"You are born to be great", Locale.FRENCH));
 		context.close();
 
 	}
