@@ -61,4 +61,9 @@ public class LineSegment implements InitializingBean, DisposableBean, Applicatio
 			throws BeansException {
 		logger.info("setApplicationContext() caled");
 	}
+	
+	public double length(){
+		return Math.sqrt((pointA.getX()-pointB.getX())*(pointA.getX()-pointB.getX())
+				+ (pointA.getY()-pointB.getY())* (pointA.getY()-pointB.getY()));
+	}
 }

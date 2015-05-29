@@ -9,8 +9,8 @@ public class Circle implements Shape {
 	private Point center;
 	private int radius;
 
-	public void draw() {
-		logger.info("drawing a circle with radius "+ radius + " and center " + center);
+	public String draw() {
+		return "drawing a circle with radius "+ radius + " and center " + center;
 	}
 
 	public Point getCenter() {
@@ -27,6 +27,10 @@ public class Circle implements Shape {
 
 	public void setRadius(int radius) {
 		this.radius = radius;
+	}
+
+	public double circumference() {
+		return Math.PI*2*radius*radius;
 	}
 
 }

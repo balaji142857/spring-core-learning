@@ -6,13 +6,15 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.krishnan.balaji.model.Circle;
-import com.krishnan.balaji.model.LineSegment;
 import com.krishnan.balaji.model.Point;
+import com.krishnan.balaji.model.Shape;
+import com.krishnan.balaji.model.Triangle;
 
 public class App {
 	final static Logger logger = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
+		
 		logger.info("Initializing Spring application context.");
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"/context.xml");
@@ -25,18 +27,19 @@ public class App {
 		those methods*/
 		// tryLifeCycleMethods(context);
 		logger.info("Attempting to draw a circle");
-		Circle circle = context.getBean("circle", Circle.class);
-		circle.draw();
+		Shape circle = context.getBean("circle", Circle.class);
+		logger.info(circle.draw());
+		logger.info("circle cirumference is "+circle.circumference());
+		logger.info("Attempting to draw a triangle");
+		Shape triangle =  context.getBean("triangle",Triangle.class);
+		logger.info(triangle.draw());
+		logger.info("triangle circumference is " + triangle.circumference());
 		logger.info("Attempting to close application context");
 		context.close();
 
 	}
 
-	private static void tryLifeCycleMethods(AbstractApplicationContext context) {
-		context.getBean("lineSegment", LineSegment.class);
-
-	}
-
+	
 	private static void tryScopes(AbstractApplicationContext context) {
 		// point is defined as prototype in context
 		logger.info("loading prototype scoped point bean");

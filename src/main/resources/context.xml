@@ -4,12 +4,27 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="greeter" class="com.krishnan.balaji.Greeter">
-		<property name="message" value="Spring is fun." />
-	</bean>
+
 
 	<bean class="com.krishnan.balaji.utils.DisplayBeanNamePostProcessor"></bean>
 	<bean class="com.krishnan.balaji.utils.MyBeanFactoryPP"></bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<!-- this is a java.util.List -->
+			<list>
+				<value>circle.properties</value>
+				<value>triangle.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<bean id="greeter" class="com.krishnan.balaji.Greeter">
+		<property name="message" value="Spring is fun." />
+	</bean>
 
 	<bean id="somePoint" class="com.krishnan.balaji.model.Point">
 		<property name="x" value="10"></property>
@@ -30,9 +45,7 @@
 		</property>
 		<property name="radius" value="7"></property>
 	</bean>
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="circle.properties"></property>
-	</bean>
+
 
 	<bean id="lineSegment" class="com.krishnan.balaji.model.LineSegment"
 		init-method="setUp" destroy-method="tearDown">
@@ -49,4 +62,25 @@
 			</bean>
 		</property>
 	</bean>
+
+	<bean id="triangle" class="com.krishnan.balaji.model.Triangle">
+		<property name="a">
+			<bean class="com.krishnan.balaji.model.Point">
+				<property name="x" value="${triangle.a.x}"></property>
+				<property name="y" value="${triangle.a.y}"></property>
+			</bean>
+		</property>
+		<property name="b" ref="trianglePointB"></property>
+		<!-- c is autowired -->
+	</bean>
+
+	<bean class="com.krishnan.balaji.model.Point" id="trianglePointB">
+		<property name="x" value="${triangle.b.x}"></property>
+		<property name="y" value="${triangle.b.y}"></property>
+	</bean>
+	<bean class="com.krishnan.balaji.model.Point" name="c">
+		<property name="x" value="${triangle.c.x}"></property>
+		<property name="y" value="${triangle.c.y}"></property>
+	</bean>
+
 </beans>       
