@@ -6,14 +6,20 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
+
+import com.krishnan.balaji.utils.DrawEvent;
 
 
-public class Circle implements Shape {
+public class Circle implements Shape,ApplicationEventPublisherAware {
 	final static Logger logger = LoggerFactory.getLogger(Circle.class);
 	private Point center;
 	private int radius;
+	private ApplicationEventPublisher publisher;
 
 	public String draw() {
+		publisher.publishEvent(new DrawEvent(this,"draw circle event"));
 		return "drawing a circle with radius "+ radius + " and center " + center;
 	}
 
@@ -46,6 +52,12 @@ public class Circle implements Shape {
 	@PreDestroy
 	public void destroy(){
 		logger.info("@predestroy method of circle called");
+	}
+
+
+	public void setApplicationEventPublisher(ApplicationEventPublisher arg0) {
+		this.publisher=arg0;
+		
 	}
 
 }
