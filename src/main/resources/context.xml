@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					http://www.springframework.org/schema/beans/spring-beans.xsd
+	   					http://www.springframework.org/schema/context 
+	   					http://www.springframework.org/schema/context/spring-context.xsd">
 
+<!-- post processors and placeholder configurator -->
 
-
+	<context:annotation-config/>
 	<bean class="com.krishnan.balaji.utils.DisplayBeanNamePostProcessor"></bean>
 	<bean class="com.krishnan.balaji.utils.MyBeanFactoryPP"></bean>
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<!-- this is a java.util.List -->
 			<list>
@@ -18,10 +23,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean
-		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
-	<bean
-		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<!-- simple beans -->
 	<bean id="greeter" class="com.krishnan.balaji.Greeter">
 		<property name="message" value="Spring is fun." />
 	</bean>
@@ -35,18 +37,17 @@
 		<property name="x" value="10"></property>
 		<property name="y" value="10"></property>
 	</bean>
-
+	<!-- circle related beans -->
 	<bean id="circle" class="com.krishnan.balaji.model.Circle">
-		<property name="center">
-			<bean class="com.krishnan.balaji.model.Point">
-				<property name="x" value="${circle.center.x}"></property>
-				<property name="y" value="${circle.center.y}"></property>
-			</bean>
-		</property>
+		<!-- centre is being injected by jsr250 @rsource -->
 		<property name="radius" value="7"></property>
 	</bean>
 
-
+	<bean class="com.krishnan.balaji.model.Point" name="center">
+		<property name="x" value="${circle.center.x}"></property>
+		<property name="y" value="${circle.center.y}"></property>
+	</bean>
+	<!-- line segment -->
 	<bean id="lineSegment" class="com.krishnan.balaji.model.LineSegment"
 		init-method="setUp" destroy-method="tearDown">
 		<property name="pointA">
@@ -62,7 +63,7 @@
 			</bean>
 		</property>
 	</bean>
-
+	<!-- triangle related beans -->
 	<bean id="triangle" class="com.krishnan.balaji.model.Triangle">
 		<property name="a">
 			<bean class="com.krishnan.balaji.model.Point">

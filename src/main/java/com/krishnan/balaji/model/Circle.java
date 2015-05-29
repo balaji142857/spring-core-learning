@@ -1,5 +1,9 @@
 package com.krishnan.balaji.model;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +21,7 @@ public class Circle implements Shape {
 		return center;
 	}
 
+	@Resource
 	public void setCenter(Point center) {
 		this.center = center;
 	}
@@ -31,6 +36,16 @@ public class Circle implements Shape {
 
 	public double circumference() {
 		return Math.PI*2*radius*radius;
+	}
+	
+	@PostConstruct
+	public void initialize(){
+		logger.info("@postconstruct method of circle called");
+	}
+	
+	@PreDestroy
+	public void destroy(){
+		logger.info("@predestroy method of circle called");
 	}
 
 }
